@@ -1,61 +1,58 @@
 import pandas as pd
 import optuna
 from typing import Tuple
+import os
 
-# Objective function that will be run by the optimizer
-# Example implementation:
-"""
-def objective_function(optuna_trial):
-    recommender_instance = ItemKNNCFRecommender(URM_train)
-    recommender_instance.fit(topK = optuna_trial.suggest_int("topK", 5, 1000),
-                            shrink = optuna_trial.suggest_int("shrink", 0, 1000),
-                            similarity = "cosine",
-                            normalize = optuna_trial.suggest_categorical("normalize", [True, False])
-                            )
-    
-    result_df, _ = evaluator_validation.evaluateRecommender(recommender_instance)
-    
-    return result_df.loc[10]["MAP"]
-"""
+import paths
+# Ensure the directory for OPTUNA_STORAGE exists
+os.makedirs(os.path.dirname(paths.OPTUNA_STORAGE), exist_ok=True)
+default_storage = f"sqlite:///{paths.OPTUNA_STORAGE}"
 
 # Callback class to save results
-class SaveResults(object):
-    
+class SaveResults:
     def __init__(self):
-        self.results_df = pd.DataFrame(columns = ["result"])
-    
-    def __call__(self, optuna_study, optuna_trial):
-        hyperparam_dict = optuna_trial.params.copy()
-        hyperparam_dict["result"] = optuna_trial.values[0]
-        
-        self.results_df = pd.concat([self.results_df, pd.DataFrame([hyperparam_dict])], ignore_index=True)
+        self.results = []
+
+    def __call__(self, study, trial):
+        data = trial.params.copy()
+        data["score"] = trial.value
+        data["trial"] = trial.number
+        self.results.append(data)
 
 # Function to perform hyperparameter tuning
 # Takes an objective function as input
-def hyperparameter_tuning(objective_function, n_trials) ->Tuple[SaveResults, optuna.study.Study]:
-    # Run optimization
-    optuna_study = optuna.create_study(direction="maximize")
-            
-    save_results = SaveResults()
-            
-    optuna_study.optimize(objective_function,
-                        callbacks=[save_results],
-                        n_trials = n_trials)
+def hyperparameter_tuning(objective_function, study_name, n_trials=50, n_jobs=-1, storage=default_storage, seed=42) ->Tuple[SaveResults, optuna.study.Study]:
+    study = optuna.create_study(
+        study_name=study_name,
+        storage=storage,
+        direction="maximize",
+        sampler=optuna.samplers.TPESampler(seed=seed),
+        load_if_exists=True
+    )
+    
+    callback = SaveResults()
+
+    study.optimize(
+        objective_function,
+        callbacks=[callback],
+        n_trials=n_trials,
+        n_jobs=n_jobs,
+        show_progress_bar=True
+    )
+
+    results_df = pd.DataFrame(callback.results)
 
     # Print study results
-    pruned_trials = [t for t in optuna_study.trials if t.state == optuna.trial.TrialState.PRUNED]
-    complete_trials = [t for t in optuna_study.trials if t.state == optuna.trial.TrialState.COMPLETE]
+    pruned_trials = [t for t in study.trials if t.state == optuna.trial.TrialState.PRUNED]
+    complete_trials = [t for t in study.trials if t.state == optuna.trial.TrialState.COMPLETE]
 
+    print()
     print("Study statistics: ")
-    print("  Number of finished trials: ", len(optuna_study.trials))
+    print("  Number of finished trials: ", len(study.trials))
     print("  Number of pruned trials: ", len(pruned_trials))
     print("  Number of complete trials: ", len(complete_trials))
+    print()
+    print("Best Value:", study.best_value)
+    print("Best Params:", study.best_params)
 
-    print("Best trial:")
-    print("  Value Validation: ", optuna_study.best_trial.value)
-
-    print("  Params: ", optuna_study.best_trial.params)
-    print("All results:")
-    print(save_results.results_df)
-
-    return save_results, optuna_study
+    return results_df, study

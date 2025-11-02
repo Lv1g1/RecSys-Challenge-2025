@@ -37,3 +37,6 @@ USER_MAPPING = os.path.join(DATA_DIR, "user_original_ID_to_index.csv")
 # Split data paths
 URM_TRAIN = os.path.join(DATA_DIR, "URM_train.npz")
 URM_VALIDATION = os.path.join(DATA_DIR, "URM_validation.npz")
+
+# Hyperparameter tuning storage path
+OPTUNA_STORAGE = os.path.join(BASE_DIR, "optuna_storage.db")
