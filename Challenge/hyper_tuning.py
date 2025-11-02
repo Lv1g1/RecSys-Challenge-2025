@@ -21,7 +21,7 @@ class SaveResults:
 
 # Function to perform hyperparameter tuning
 # Takes an objective function as input
-def hyperparameter_tuning(objective_function, study_name, n_trials=50, n_jobs=-1, storage=default_storage, seed=42) ->Tuple[SaveResults, optuna.study.Study]:
+def hyperparameter_tuning(objective_function, study_name, n_trials=50, storage=default_storage) ->Tuple[SaveResults, optuna.study.Study]:
     study = optuna.create_study(
         study_name=study_name,
         storage=storage,
