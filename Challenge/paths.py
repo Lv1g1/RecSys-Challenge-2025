@@ -9,7 +9,7 @@ if 'KAGGLE_KERNEL_RUN_TYPE' in os.environ:
 
 # Detect Colab
 elif '/content' in os.getcwd():
-    BASE_DIR = "/content/drive/MyDrive/RecSys"
+    BASE_DIR = "/content/drive/MyDrive/RecSys/demo"
     ENV = "colab"
 
 else:
