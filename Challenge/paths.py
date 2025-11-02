@@ -9,7 +9,7 @@ if 'KAGGLE_KERNEL_RUN_TYPE' in os.environ:
 
 # Detect Colab
 elif '/content' in os.getcwd():
-    BASE_DIR = "/content/drive/MyDrive/RecSys/demo"
+    BASE_DIR = "/content/drive/MyDrive/RecSys"
     ENV = "colab"
 
 else:
@@ -25,8 +25,8 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 print(f"Running on: {ENV} — BASE_DIR = {BASE_DIR}")
 
 # Challenge data paths
-CHALLENGE_DATASET = os.path.join(DATA_DIR, "challenge_dataset")
-CHALLENGE_USER_IDS_TEST = os.path.join(DATA_DIR, "challenge_user_ids_test.csv")
+CHALLENGE_DATASET = os.path.join(DATA_DIR, "data_train.csv")
+CHALLENGE_USER_IDS_TEST = os.path.join(DATA_DIR, "data_target_users_test.csv")
 
 # Preprocessed data paths
 URM_PATH = os.path.join(DATA_DIR, "URM_all.npz")
