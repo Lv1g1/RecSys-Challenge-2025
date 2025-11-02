@@ -3,7 +3,7 @@ import optuna
 from typing import Tuple
 import os
 
-import paths
+from Challenge import paths
 # Ensure the directory for OPTUNA_STORAGE exists
 os.makedirs(os.path.dirname(paths.OPTUNA_STORAGE), exist_ok=True)
 default_storage = f"sqlite:///{paths.OPTUNA_STORAGE}"
