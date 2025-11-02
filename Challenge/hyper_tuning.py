@@ -26,7 +26,6 @@ def hyperparameter_tuning(objective_function, study_name, n_trials=50, n_jobs=-1
         study_name=study_name,
         storage=storage,
         direction="maximize",
-        sampler=optuna.samplers.TPESampler(seed=seed),
         load_if_exists=True
     )
     
@@ -36,7 +35,6 @@ def hyperparameter_tuning(objective_function, study_name, n_trials=50, n_jobs=-1
         objective_function,
         callbacks=[callback],
         n_trials=n_trials,
-        n_jobs=n_jobs,
         show_progress_bar=True
     )
 
