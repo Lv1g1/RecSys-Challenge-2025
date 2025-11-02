@@ -1,5 +1,6 @@
 import pandas as pd
 import optuna
+from typing import Tuple
 
 # Objective function that will be run by the optimizer
 # Example implementation:
@@ -27,11 +28,11 @@ class SaveResults(object):
         hyperparam_dict = optuna_trial.params.copy()
         hyperparam_dict["result"] = optuna_trial.values[0]
         
-        self.results_df = self.results_df.append(hyperparam_dict, ignore_index=True)
+        self.results_df = pd.concat([self.results_df, pd.DataFrame([hyperparam_dict])], ignore_index=True)
 
 # Function to perform hyperparameter tuning
 # Takes an objective function as input
-def hyperparameter_tuning(objective_function, n_trials):
+def hyperparameter_tuning(objective_function, n_trials) ->Tuple[SaveResults, optuna.study.Study]:
     # Run optimization
     optuna_study = optuna.create_study(direction="maximize")
             
@@ -57,4 +58,4 @@ def hyperparameter_tuning(objective_function, n_trials):
     print("All results:")
     print(save_results.results_df)
 
-    return optuna_study
+    return save_results, optuna_study
