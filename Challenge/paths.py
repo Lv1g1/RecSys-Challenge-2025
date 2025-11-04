@@ -8,7 +8,7 @@ if "/kaggle" in cwd:
 
 elif "/content" in cwd:
     ENV = "colab"
-    PERSISTENT_STORAGE = "/content/drive/MyDrive/RecSys/demo"
+    PERSISTENT_STORAGE = "/content/drive/MyDrive/RecSys"
 
 else:
     ENV = "local"
