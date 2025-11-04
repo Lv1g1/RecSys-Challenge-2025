@@ -28,8 +28,8 @@ CHALLENGE_DATASET = os.path.join(DATA_DIR, "data_train.csv")
 CHALLENGE_USER_IDS_TEST = os.path.join(DATA_DIR, "data_target_users_test.csv")
 
 if ENV == "kaggle":
-    CHALLENGE_DATASET = "/kaggle/input/recsys-challenge-2024/data_train.csv"
-    CHALLENGE_USER_IDS_TEST = "/kaggle/input/recsys-challenge-2024/data_target_users_test.csv"
+    CHALLENGE_DATASET = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_train.csv"
+    CHALLENGE_USER_IDS_TEST = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_target_users_test.csv"
 
 # Preprocessed data paths
 URM_PATH = os.path.join(DATA_DIR, "URM_all.npz")
