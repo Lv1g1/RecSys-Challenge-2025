@@ -27,10 +27,6 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 CHALLENGE_DATASET = os.path.join(DATA_DIR, "data_train.csv")
 CHALLENGE_USER_IDS_TEST = os.path.join(DATA_DIR, "data_target_users_test.csv")
 
-if ENV == "kaggle":
-    CHALLENGE_DATASET = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_train.csv"
-    CHALLENGE_USER_IDS_TEST = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_target_users_test.csv"
-
 # Preprocessed data paths
 URM_PATH = os.path.join(DATA_DIR, "URM_all.npz")
 TEST_USER_IDS = os.path.join(DATA_DIR, "test_user_ids_mapped.csv")
@@ -46,3 +42,10 @@ OPTUNA_STORAGE = "sqlite:///" + os.path.join(PERSISTENT_STORAGE, "optuna_storage
 
 # Submissions path
 SUBMISSIONS = os.path.join(PERSISTENT_STORAGE, "submissions")
+
+if ENV == "kaggle":
+    CHALLENGE_DATASET = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_train.csv"
+    CHALLENGE_USER_IDS_TEST = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_target_users_test.csv"
+
+    URM_TRAIN = "/kaggle/input/splitted-data/URM_train.npz"
+    URM_VALIDATION = "/kaggle/input/splitted-data/URM_validation.npz"
