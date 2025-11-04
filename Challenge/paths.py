@@ -39,3 +39,6 @@ URM_VALIDATION = os.path.join(DATA_DIR, "URM_validation.npz")
 
 # Optuna studies storage path
 OPTUNA_STORAGE = "sqlite:///" + os.path.join(PERSISTENT_STORAGE, "optuna_storage.db")
+
+# Submissions path
+SUBMISSIONS = os.path.join(PERSISTENT_STORAGE, "submissions")
