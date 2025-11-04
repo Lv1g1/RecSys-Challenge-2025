@@ -1,28 +1,27 @@
 import os
 
-ENV = "local"
+cwd = os.getcwd()
 
-# Detect Kaggle
-if 'KAGGLE_KERNEL_RUN_TYPE' in os.environ:
-    BASE_DIR = "/kaggle/working"
+if "/kaggle" in cwd:
     ENV = "kaggle"
+    PERSISTENT_STORAGE = "/kaggle/working"
 
-# Detect Colab
-elif '/content' in os.getcwd():
-    BASE_DIR = "/content/drive/MyDrive/RecSys/demo"
+elif "/content" in cwd:
     ENV = "colab"
+    PERSISTENT_STORAGE = "/content/drive/MyDrive/RecSys/demo"
 
 else:
-    BASE_DIR = os.getcwd()
+    ENV = "local"
+    PERSISTENT_STORAGE = cwd
 
-# Default directories
-DATA_DIR  = os.path.join(BASE_DIR, "data")
-MODEL_DIR = os.path.join(BASE_DIR, "models")
+print(f"Running on {ENV} — storage at: {PERSISTENT_STORAGE}")
+
+# Create necessary directories
+DATA_DIR  = os.path.join(PERSISTENT_STORAGE, "data")
+MODEL_DIR = os.path.join(PERSISTENT_STORAGE, "models")
 
 os.makedirs(DATA_DIR,  exist_ok=True)
 os.makedirs(MODEL_DIR, exist_ok=True)
-
-print(f"Running on: {ENV} — BASE_DIR = {BASE_DIR}")
 
 # Challenge data paths
 CHALLENGE_DATASET = os.path.join(DATA_DIR, "data_train.csv")
@@ -38,5 +37,5 @@ USER_MAPPING = os.path.join(DATA_DIR, "user_original_ID_to_index.csv")
 URM_TRAIN = os.path.join(DATA_DIR, "URM_train.npz")
 URM_VALIDATION = os.path.join(DATA_DIR, "URM_validation.npz")
 
-# Hyperparameter tuning storage path
-OPTUNA_STORAGE = os.path.join(BASE_DIR, "optuna_storage.db")
+# Optuna studies storage path
+OPTUNA_STORAGE = "sqlite:///" + os.path.join(PERSISTENT_STORAGE, "optuna_storage.db")
