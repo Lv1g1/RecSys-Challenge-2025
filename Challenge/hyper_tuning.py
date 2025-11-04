@@ -1,12 +1,8 @@
 import pandas as pd
 import optuna
 from typing import Tuple
-import os
 
 from Challenge import paths
-# Ensure the directory for OPTUNA_STORAGE exists
-os.makedirs(os.path.dirname(paths.OPTUNA_STORAGE), exist_ok=True)
-default_storage = f"sqlite:///{paths.OPTUNA_STORAGE}"
 
 # Callback class to save results
 class SaveResults:
@@ -21,7 +17,7 @@ class SaveResults:
 
 # Function to perform hyperparameter tuning
 # Takes an objective function as input
-def hyperparameter_tuning(objective_function, study_name, n_trials=50, storage=default_storage) ->Tuple[SaveResults, optuna.study.Study]:
+def hyperparameter_tuning(objective_function, study_name, n_trials=50, storage=paths.OPTUNA_STORAGE) ->Tuple[SaveResults, optuna.study.Study]:
     study = optuna.create_study(
         study_name=study_name,
         storage=storage,
