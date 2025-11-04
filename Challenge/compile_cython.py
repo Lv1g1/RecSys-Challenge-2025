@@ -27,7 +27,8 @@ if not fileToCompile.endswith(".pyx"):
 # Remove file argument before invoking setup()
 del sys.argv[1]
 
-extensionName = os.path.splitext(fileToCompile)[0]
+module_path = os.path.splitext(fileToCompile)[0]
+extensionName = module_path.replace(os.sep, ".")
 
 extensions = [
     Extension(
