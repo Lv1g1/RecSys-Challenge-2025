@@ -45,6 +45,8 @@ if len(sys.argv) == 4:
     )
 
 elif len(sys.argv) == 1:
+    sys.argv += ["build_ext", "--inplace"]
+    
     # Compile all .pyx files in the current directory and subdirectories
     directoryToCompile = os.getcwd()
 
