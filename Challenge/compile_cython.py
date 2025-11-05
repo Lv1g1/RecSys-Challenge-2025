@@ -53,7 +53,7 @@ elif len(sys.argv) == 1:
         for file in files:
             if file.endswith(".pyx"):
                 filePath = os.path.join(root, file)
-                module_path = os.path.splitext(filePath)[0]
+                module_path = os.path.splitext(file)[0]
                 extensionName = module_path.replace(os.sep, ".")
 
                 extensions.append(
