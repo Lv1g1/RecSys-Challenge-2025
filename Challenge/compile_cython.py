@@ -6,7 +6,7 @@ Compile a given Cython source file in a subprocess
 
 Usage:
     python compile_script.py filename.pyx build_ext --inplace
-    python compile_script.py directory
+    python compile_script.py
 """
 
 from setuptools import setup, Extension
@@ -44,14 +44,9 @@ if len(sys.argv) == 4:
         ),
     )
 
-elif len(sys.argv) == 2:
-    directoryToCompile = sys.argv[1]
-
-    if not os.path.isdir(directoryToCompile):
-        raise ValueError("First argument must be a directory")
-
-    # Remove directory argument before invoking setup()
-    del sys.argv[1]
+elif len(sys.argv) == 1:
+    # Compile all .pyx files in the current directory and subdirectories
+    directoryToCompile = os.getcwd()
 
     extensions = []
     for root, _, files in os.walk(directoryToCompile):
