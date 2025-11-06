@@ -1,3 +1,11 @@
 data/
 models/
 optuna_storage.db
+__pycache__/
+# Cython compiled files
+*.c
+*.html
+
+c_code/
+
+.vscode/
