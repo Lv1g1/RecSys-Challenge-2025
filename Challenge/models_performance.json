@@ -1,8 +1,8 @@
 {
     "TopPop": {
-        "best_recall": 0.1287939640838322
+        "best_recall": 0.103402359187603
     },
-    
+
     "ItemKNN": {
         "similarities": ["cosine", "pearson", "jaccard", "tversky"],
         "best_params": {
@@ -19,10 +19,20 @@
         }
     },
 
-    "UserKNN": {},
-
-    "IALS": {
-        "best_recall": 0.24356789012345678
+    "UserKNN": {
+        "similarities": ["cosine", "pearson", "jaccard", "tversky"],
+        "best_params": {
+            "cosine": {"topK": 347, "shrink": 3, "normalize": true, "feature_weighting": "TF-IDF"},
+            "pearson": {"topK": 2850, "shrink": 935, "normalize": true, "feature_weighting": "TF-IDF"},
+            "jaccard": {"topK": 301, "shrink": 0, "normalize": true, "feature_weighting": "none"},
+            "tversky": {"topK": 401, "shrink": 5, "normalize": false, "feature_weighting": "TF-IDF", "alpha": 0.2184775930703794, "beta": 0.5934354684918872}
+        },
+        "best_recall": {
+            "cosine": 0.22335921189714308,
+            "pearson": 0.113402359187603,
+            "jaccard": 0.22147764265537262,
+            "tversky": 0.22316709140849905
+        }
     },
 
     "SLIMElasticNet": {
@@ -33,5 +43,10 @@
             "topK": 646,
             "positive_only": false
         }
+    },
+
+    "EASE_R": {
+        "best_recall": 0.2832670509815216,
+        "best_params": {"topK": 850, "l2": 400.12671834453766, "normalize": false}
     }
 }
