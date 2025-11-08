@@ -12,7 +12,7 @@ elif "/content" in cwd:
 
 else:
     ENV = "local"
-    PERSISTENT_STORAGE = cwd
+    PERSISTENT_STORAGE = "/home/luigi/RecSys"
 
 print(f"Running on {ENV} — storage at: {PERSISTENT_STORAGE}")
 

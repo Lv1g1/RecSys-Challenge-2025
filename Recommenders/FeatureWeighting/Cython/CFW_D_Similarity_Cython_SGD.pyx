@@ -205,7 +205,7 @@ cdef class CFW_D_Similarity_Cython_SGD:
         cdef long[:] newOrdering = np.arange(n_samples)
         np.random.shuffle(newOrdering)
 
-        cdef long dropout_threshold = long(RAND_MAX * self.dropout_perc)
+        cdef long dropout_threshold = <long>(RAND_MAX * self.dropout_perc)
 
         # Renew dropout mask
         if self.use_dropout:

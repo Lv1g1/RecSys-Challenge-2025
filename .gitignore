@@ -6,6 +6,5 @@ __pycache__/
 *.c
 *.html
 
-c_code/
-
 .vscode/
+build/
