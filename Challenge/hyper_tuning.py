@@ -145,7 +145,7 @@ class ModelOptimizer:
         print("Best Params:", self.study.best_params)
         return self.study
 
-    def create_and_optimize_study(self, study_name, objective_function, n_trials=50, direction="maximize", load_if_exists=True, pruner=None):
+    def create_and_optimize_study(self, study_name, objective_function, n_trials=50, direction="maximize", load_if_exists=True, pruner=CustomCVPruner(n_trials=3)):
         self.create_study(study_name, direction, load_if_exists, pruner)
         self.optimize(objective_function, n_trials)
         return self.study
