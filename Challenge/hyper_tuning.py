@@ -1,5 +1,6 @@
 import json, os
 import optuna
+import numpy as np
 
 from Challenge import paths
 
@@ -37,7 +38,7 @@ class ModelOptimizer:
     
     def log_fold_performance(self, fold_number, score):
         self.folds_logged = True
-        self.folds[fold_number] = score
+        self.folds[fold_number] = float(score) # For JSON serialization
 
     # Callback method for Optuna
     def __call__(self, study: optuna.study.Study, trial: optuna.trial.Trial):
@@ -56,12 +57,9 @@ class ModelOptimizer:
 
                 # Add mean and std of fold scores
                 scores = list(self.performance_data[study.study_name]["folds"].values())
-                mean_score = sum(scores) / len(scores)
-                std_score = (sum((x - mean_score) ** 2 for x in scores) / len(scores)) ** 0.5
-                self.performance_data[study.study_name]["mean_fold_score"] = mean_score
-                self.performance_data[study.study_name]["std_fold_score"] = std_score
+                self.performance_data[study.study_name]["mean_fold_score"] = float(np.mean(scores))
+                self.performance_data[study.study_name]["std_fold_score"] = float(np.std(scores))
 
-            
             self._save_to_file()
 
     def _save_to_file(self):
