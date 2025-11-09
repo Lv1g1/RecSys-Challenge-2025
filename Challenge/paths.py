@@ -29,9 +29,6 @@ CHALLENGE_USER_IDS_TEST = os.path.join(DATA_DIR, "data_target_users_test.csv")
 
 # Preprocessed data paths
 URM_PATH = os.path.join(DATA_DIR, "URM_all.npz")
-TEST_USER_IDS = os.path.join(DATA_DIR, "test_user_ids_mapped.csv")
-ITEM_MAPPING = os.path.join(DATA_DIR, "item_original_ID_to_index.csv")
-USER_MAPPING = os.path.join(DATA_DIR, "user_original_ID_to_index.csv")
 
 # Split data paths
 URM_TRAIN = os.path.join(DATA_DIR, "URM_train.npz")
@@ -42,6 +39,11 @@ OPTUNA_STORAGE = "sqlite:///" + os.path.join(PERSISTENT_STORAGE, "optuna_storage
 
 # Submissions path
 SUBMISSIONS = os.path.join(PERSISTENT_STORAGE, "submissions")
+os.makedirs(SUBMISSIONS, exist_ok=True)
+
+# Performance logs path
+PERFORMANCE_LOG = os.path.join(PERSISTENT_STORAGE, "performance_logs")
+os.makedirs(PERFORMANCE_LOG, exist_ok=True)
 
 if ENV == "kaggle":
     CHALLENGE_DATASET = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_train.csv"
