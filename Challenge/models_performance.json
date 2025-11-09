@@ -9,7 +9,7 @@
             "cosine": {"topK": 79, "shrink": 431, "normalize": true, "feature_weighting": "TF-IDF"},
             "pearson": {"topK": 11, "shrink": 3, "normalize": true, "feature_weighting": "TF-IDF"},
             "jaccard": {"topK": 1101, "shrink": 0, "normalize": true, "feature_weighting": "BM25"},
-            "tversky": {"topK": 6, "shrink": 106, "normalize": true, "feature_weighting": "TF-IDF", "alpha": 0.10252983277640502, "beta": 0.9684276681445425}
+            "tversky": {"topK": 6, "shrink": 106, "normalize": true, "feature_weighting": "TF-IDF", "tversky_alpha": 0.10252983277640502, "tversky_beta": 0.9684276681445425}
         },
         "best_recall": {
             "cosine":  0.21802981660336454,
@@ -25,7 +25,7 @@
             "cosine": {"topK": 347, "shrink": 3, "normalize": true, "feature_weighting": "TF-IDF"},
             "pearson": {"topK": 2850, "shrink": 935, "normalize": true, "feature_weighting": "TF-IDF"},
             "jaccard": {"topK": 301, "shrink": 0, "normalize": true, "feature_weighting": "none"},
-            "tversky": {"topK": 401, "shrink": 5, "normalize": false, "feature_weighting": "TF-IDF", "alpha": 0.2184775930703794, "beta": 0.5934354684918872}
+            "tversky": {"topK": 401, "shrink": 5, "normalize": false, "feature_weighting": "TF-IDF", "tversky_alpha": 0.2184775930703794, "tversky_beta": 0.5934354684918872}
         },
         "best_recall": {
             "cosine": 0.22335921189714308,
