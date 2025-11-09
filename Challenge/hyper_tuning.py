@@ -35,13 +35,9 @@ class ModelOptimizer:
         self.folds_logged = False
         self.folds = {}
     
-    def log_fold_performance(self, fold_number, trial, score, params):
+    def log_fold_performance(self, fold_number, score):
         self.folds_logged = True
-        self.folds[fold_number] = {
-            "best_trial": trial,
-            "best_score": score,
-            "best_params": params
-        }
+        self.folds[fold_number] = score
 
     # Callback method for Optuna
     def __call__(self, study: optuna.study.Study, trial: optuna.trial.Trial):
@@ -57,6 +53,14 @@ class ModelOptimizer:
                 self.performance_data[study.study_name]["folds"] = self.folds
                 self.folds_logged = False
                 self.folds = {}
+
+                # Add mean and std of fold scores
+                scores = list(self.performance_data[study.study_name]["folds"].values())
+                mean_score = sum(scores) / len(scores)
+                std_score = (sum((x - mean_score) ** 2 for x in scores) / len(scores)) ** 0.5
+                self.performance_data[study.study_name]["mean_fold_score"] = mean_score
+                self.performance_data[study.study_name]["std_fold_score"] = std_score
+
             
             self._save_to_file()
 
