@@ -23,6 +23,47 @@ from Challenge import paths
 }
 """
 
+class CustomCVPruner(optuna.pruners.BasePruner):
+    # Keep top n_trials based on final score
+    def __init__(self, n_trials=3):
+        self.n_trials = n_trials
+
+    def prune(self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial) -> bool:
+        # Cannot prune if no intermediate values reported yet
+        if not trial.intermediate_values:
+            return False
+
+        current_step = max(trial.intermediate_values.keys())
+        current_score = trial.intermediate_values[current_step]
+
+        # Get all completed trials with a final value
+        completed_trials = [
+            t for t in study.trials
+            if t.state == optuna.trial.TrialState.COMPLETE and t.value is not None
+        ]
+
+        if len(completed_trials) < self.n_trials:
+            return False  # not enough trials for baseline
+
+        # Sort completed trials by final value descending and take top N
+        top_trials = sorted(completed_trials, key=lambda t: t.value, reverse=True)[:self.n_trials]
+
+        # Compute threshold: lowest intermediate value at current step among top trials
+        baseline_scores = [
+            t.intermediate_values[current_step]
+            for t in top_trials
+            if current_step in t.intermediate_values
+        ]
+
+        if not baseline_scores:
+            return False  # top trials have not reported this step yet
+
+        threshold_score = min(baseline_scores)
+
+        # Prune if current trial is below threshold
+        return current_score < threshold_score
+    
+
 class ModelOptimizer:
     def __init__(self, model_name):
         self.model_name = model_name
@@ -72,16 +113,17 @@ class ModelOptimizer:
                 self.performance_data = json.load(f)
         return self.performance_data
     
-    def create_study(self, study_name, direction="maximize", load_if_exists=True):
+    def create_study(self, study_name, direction="maximize", load_if_exists=True, pruner=CustomCVPruner(n_trials=3)):       
         self.study = optuna.create_study(
             study_name=study_name,
             storage=paths.OPTUNA_STORAGE,
             direction=direction,
-            load_if_exists=load_if_exists
+            load_if_exists=load_if_exists,
+            pruner=pruner
         )
         return self.study
 
-    def optimize(self, objective_function, n_trials=50, load_if_exists=True):
+    def optimize(self, objective_function, n_trials=50):
         self.study.optimize(
             objective_function,
             callbacks=[self],
@@ -103,9 +145,9 @@ class ModelOptimizer:
         print("Best Params:", self.study.best_params)
         return self.study
 
-    def create_and_optimize_study(self, study_name, objective_function, n_trials=50, direction="maximize", load_if_exists=True):
-        self.create_study(study_name, direction, load_if_exists)
-        self.optimize(objective_function, n_trials, load_if_exists)
+    def create_and_optimize_study(self, study_name, objective_function, n_trials=50, direction="maximize", load_if_exists=True, pruner=None):
+        self.create_study(study_name, direction, load_if_exists, pruner)
+        self.optimize(objective_function, n_trials)
         return self.study
 
     def get_best_params(self, study_name):
