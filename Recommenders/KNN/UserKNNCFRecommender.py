@@ -40,7 +40,7 @@ class UserKNNCFRecommender(BaseUserSimilarityMatrixRecommender):
 
         if feature_weighting == "BM25":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = okapi_BM_25(self.URM_train.T).T
+            self.URM_train = okapi_BM_25(self.URM_train.T, K1=similarity_args.get("BM25_k1", 1.2), B=similarity_args.get("BM25_b", 0.75)).T
             self.URM_train = check_matrix(self.URM_train, 'csr')
 
         elif feature_weighting == "TF-IDF":
