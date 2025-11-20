@@ -40,7 +40,7 @@ class ItemKNNCBFRecommender(BaseItemCBFRecommender, BaseItemSimilarityMatrixReco
 
         if feature_weighting == "BM25":
             self.ICM_train = self.ICM_train.astype(np.float32)
-            self.ICM_train = okapi_BM_25(self.ICM_train, K1=similarity_args.get("BM25_k1", 1.2), B=similarity_args.get("BM25_b", 0.75))
+            self.ICM_train = okapi_BM_25(self.ICM_train)
 
         elif feature_weighting == "TF-IDF":
             self.ICM_train = self.ICM_train.astype(np.float32)
