@@ -1,0 +1,25 @@
+{
+    "UserKNNCFRecommender_asymmetric": {
+        "best_trial": 86,
+        "best_score": 0.2358744211659045,
+        "best_params": {
+            "similarity": "asymmetric",
+            "topK": 418,
+            "shrink": 137,
+            "normalize": true,
+            "asymmetric_alpha": 0.2887952454899258,
+            "feature_weighting": "BM25",
+            "BM25_k1": 1.1959159850418524,
+            "BM25_b": 0.0998562786186147
+        },
+        "folds": {
+            "0": 0.2350991977208643,
+            "1": 0.2356662789472056,
+            "2": 0.2372702096424136,
+            "3": 0.23450611212600403,
+            "4": 0.23683030739303493
+        },
+        "mean_fold_score": 0.2358744211659045,
+        "std_fold_score": 0.0010371603686982552
+    }
+}

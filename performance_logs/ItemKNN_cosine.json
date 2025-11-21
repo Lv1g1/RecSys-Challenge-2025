@@ -1,0 +1,46 @@
+{
+    "ItemKNNCFRecommender_cosine": {
+        "best_trial": 33,
+        "best_score": 0.22050691227509706,
+        "best_params": {
+            "similarity": "cosine",
+            "topK": 111,
+            "shrink": 4,
+            "normalize": true,
+            "feature_weighting": "BM25",
+            "BM25_k1": 1.1870283836071653,
+            "BM25_b": 0.10718675269785805
+        },
+        "folds": {
+            "0": 0.21982832299155963,
+            "1": 0.2202112530334842,
+            "2": 0.2212753095110052,
+            "3": 0.21999479287547352,
+            "4": 0.22122488296396267
+        },
+        "mean_fold_score": 0.22050691227509706,
+        "std_fold_score": 0.0006190444741010372
+    },
+    "ItemKNNCFRecommender_cosine_refined": {
+        "best_trial": 16,
+        "best_score": 0.22039502329275967,
+        "best_params": {
+            "similarity": "cosine",
+            "topK": 112,
+            "shrink": 7,
+            "normalize": true,
+            "feature_weighting": "BM25",
+            "BM25_k1": 1.140341733993252,
+            "BM25_b": 0.09136432416356022
+        },
+        "folds": {
+            "0": 0.22016094972432163,
+            "1": 0.22000243320951834,
+            "2": 0.2214420235000871,
+            "3": 0.21959717040971163,
+            "4": 0.22077253962015964
+        },
+        "mean_fold_score": 0.22039502329275967,
+        "std_fold_score": 0.0006456337419134862
+    }
+}

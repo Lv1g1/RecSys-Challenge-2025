@@ -1,0 +1,65 @@
+{
+    "ItemKNNCFRecommender_asymmetric": {
+        "best_trial": 1,
+        "best_score": 0.21289005573328956,
+        "best_params": {
+            "similarity": "asymmetric",
+            "topK": 174,
+            "shrink": 897,
+            "normalize": true,
+            "asymmetric_alpha": 0.4627287437973242,
+            "feature_weighting": "TF-IDF"
+        },
+        "folds": {
+            "0": 0.2123010762277095,
+            "1": 0.21337145488739032,
+            "2": 0.21405186737041004,
+            "3": 0.2117597991396562,
+            "4": 0.21296608104128176
+        },
+        "mean_fold_score": 0.21289005573328956,
+        "std_fold_score": 0.000801462176102881
+    },
+    "ItemKNNCFRecommender_asymmetric_1": {
+        "best_trial": 62,
+        "best_score": 0.2410396685281379,
+        "best_params": {
+            "similarity": "asymmetric",
+            "topK": 50,
+            "shrink": 37,
+            "normalize": true,
+            "asymmetric_alpha": 0.0871226132417833,
+            "feature_weighting": "TF-IDF"
+        },
+        "folds": {
+            "0": 0.24115003931606802,
+            "1": 0.2409800267569988,
+            "2": 0.24118975472781554,
+            "3": 0.2404525594653846,
+            "4": 0.24142596237442265
+        },
+        "mean_fold_score": 0.2410396685281379,
+        "std_fold_score": 0.0003262467490324224
+    },
+    "ItemKNNCFRecommender_asymmetric_1_refined": {
+        "best_trial": 19,
+        "best_score": 0.24515745634964875,
+        "best_params": {
+            "similarity": "asymmetric",
+            "topK": 16,
+            "shrink": 45,
+            "normalize": true,
+            "asymmetric_alpha": 0.09085617207687702,
+            "feature_weighting": "TF-IDF"
+        },
+        "folds": {
+            "0": 0.24516610859039625,
+            "1": 0.24476477502084065,
+            "2": 0.24592377513375072,
+            "3": 0.24327449855897162,
+            "4": 0.2466581244442846
+        },
+        "mean_fold_score": 0.24515745634964875,
+        "std_fold_score": 0.001143595447512939
+    }
+}

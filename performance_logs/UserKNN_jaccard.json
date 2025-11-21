@@ -1,0 +1,42 @@
+{
+    "UserKNNCFRecommender_jaccard": {
+        "best_trial": 96,
+        "best_score": 0.22085218131542206,
+        "best_params": {
+            "similarity": "jaccard",
+            "topK": 385,
+            "shrink": 1,
+            "normalize": true,
+            "feature_weighting": "none"
+        },
+        "folds": {
+            "0": 0.2200315296649933,
+            "1": 0.22035403549671173,
+            "2": 0.2216438353061676,
+            "3": 0.21953809261322021,
+            "4": 0.22269348800182343
+        },
+        "mean_fold_score": 0.22085219621658325,
+        "std_fold_score": 0.001154605894549658
+    },
+    "UserKNNCFRecommender_jaccard_refined": {
+        "best_trial": 15,
+        "best_score": 0.2208811491727829,
+        "best_params": {
+            "similarity": "jaccard",
+            "topK": 367,
+            "shrink": 0,
+            "normalize": true,
+            "feature_weighting": "none"
+        },
+        "folds": {
+            "0": 0.22042185068130493,
+            "1": 0.22024936974048615,
+            "2": 0.22178862988948822,
+            "3": 0.21939165890216827,
+            "4": 0.22255422174930573
+        },
+        "mean_fold_score": 0.22088114619255067,
+        "std_fold_score": 0.0011359026999759351
+    }
+}

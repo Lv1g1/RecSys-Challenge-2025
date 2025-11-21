@@ -1,0 +1,46 @@
+{
+    "ItemKNNCFRecommender_tversky": {
+        "best_trial": 106,
+        "best_score": 0.24763381481170654,
+        "best_params": {
+            "similarity": "tversky",
+            "topK": 5,
+            "shrink": 62,
+            "tversky_alpha": 0.0913436157822328,
+            "tversky_beta": 0.9357058146064209,
+            "normalize": true,
+            "feature_weighting": "none"
+        },
+        "folds": {
+            "0": 0.24791865050792694,
+            "1": 0.2467993050813675,
+            "2": 0.2483234852552414,
+            "3": 0.24683517217636108,
+            "4": 0.24829241633415222
+        },
+        "mean_fold_score": 0.24763380587100983,
+        "std_fold_score": 0.000681875239104207
+    },
+    "ItemKNNCFRecommender_tversky_refined": {
+        "best_trial": 13,
+        "best_score": 0.24964454770088196,
+        "best_params": {
+            "similarity": "tversky",
+            "topK": 6,
+            "shrink": 61,
+            "tversky_alpha": 0.09821524504966911,
+            "tversky_beta": 0.9573174897435559,
+            "normalize": true,
+            "feature_weighting": "none"
+        },
+        "folds": {
+            "0": 0.24965621531009674,
+            "1": 0.2489747852087021,
+            "2": 0.2500503659248352,
+            "3": 0.24867583811283112,
+            "4": 0.25086548924446106
+        },
+        "mean_fold_score": 0.24964453876018525,
+        "std_fold_score": 0.0007800644689187708
+    }
+}

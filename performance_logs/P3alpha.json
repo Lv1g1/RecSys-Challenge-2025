@@ -1,0 +1,40 @@
+{
+    "P3alphaRecommender": {
+        "best_trial": 88,
+        "best_score": 0.2344038039445877,
+        "best_params": {
+            "topK": 167,
+            "alpha": 1.6313028663201836,
+            "normalize_similarity": true,
+            "implicit": true
+        },
+        "folds": {
+            "0": 0.23363234102725983,
+            "1": 0.2331867218017578,
+            "2": 0.23572517931461334,
+            "3": 0.23389855027198792,
+            "4": 0.23557624220848083
+        },
+        "mean_fold_score": 0.23440380692481994,
+        "std_fold_score": 0.0010442575927413443
+    },
+    "P3alphaRecommender_refined": {
+        "best_trial": 6,
+        "best_score": 0.23443999886512756,
+        "best_params": {
+            "topK": 169,
+            "alpha": 1.5754208768966982,
+            "normalize_similarity": true,
+            "implicit": true
+        },
+        "folds": {
+            "0": 0.23363937437534332,
+            "1": 0.23302718997001648,
+            "2": 0.23552857339382172,
+            "3": 0.2344294786453247,
+            "4": 0.23557528853416443
+        },
+        "mean_fold_score": 0.23443998098373414,
+        "std_fold_score": 0.001011040687442082
+    }
+}

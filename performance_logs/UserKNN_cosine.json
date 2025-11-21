@@ -1,0 +1,24 @@
+{
+    "UserKNNCFRecommender_cosine": {
+        "best_trial": 62,
+        "best_score": 0.23553837006331574,
+        "best_params": {
+            "similarity": "cosine",
+            "topK": 463,
+            "shrink": 1,
+            "normalize": true,
+            "feature_weighting": "BM25",
+            "BM25_k1": 0.793623547568753,
+            "BM25_b": 0.12926574642852187
+        },
+        "folds": {
+            "0": 0.23510024290300183,
+            "1": 0.23544990504204608,
+            "2": 0.23636379042970698,
+            "3": 0.23389212767485995,
+            "4": 0.23688578426696386
+        },
+        "mean_fold_score": 0.23553837006331574,
+        "std_fold_score": 0.001039878770587008
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "UserKNNCFRecommender_tversky": {
+        "best_trial": 93,
+        "best_score": 0.22270536422729492,
+        "best_params": {
+            "similarity": "tversky",
+            "topK": 354,
+            "shrink": 17,
+            "tversky_alpha": 0.22981698409226547,
+            "tversky_beta": 0.8838363460495166,
+            "normalize": false,
+            "feature_weighting": "TF-IDF"
+        },
+        "folds": {
+            "0": 0.22248703241348267,
+            "1": 0.22233009338378906,
+            "2": 0.22389192879199982,
+            "3": 0.22134223580360413,
+            "4": 0.2234756350517273
+        },
+        "mean_fold_score": 0.2227053850889206,
+        "std_fold_score": 0.0008997631569908728
+    },
+    "UserKNNCFRecommender_tversky_refined": {
+        "best_trial": 10,
+        "best_score": 0.22263076901435852,
+        "best_params": {
+            "similarity": "tversky",
+            "topK": 344,
+            "shrink": 14,
+            "tversky_alpha": 0.23851430007391616,
+            "tversky_beta": 0.8300200160081194,
+            "normalize": false,
+            "feature_weighting": "TF-IDF"
+        },
+        "folds": {
+            "0": 0.22217868268489838,
+            "1": 0.22224609553813934,
+            "2": 0.2238994985818863,
+            "3": 0.22100414335727692,
+            "4": 0.2238253653049469
+        },
+        "mean_fold_score": 0.22263075709342955,
+        "std_fold_score": 0.001098635678754666
+    }
+}
