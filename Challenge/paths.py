@@ -93,3 +93,18 @@ def load_cv_folds(k):
         folds.append((URM_train, URM_validation))
 
     return folds
+
+
+import pandas as pd
+
+# Generate recommendations for the test set
+def generate_submission(recommender, filename):
+    user_ids_test = pd.read_csv(CHALLENGE_USER_IDS_TEST)
+    ids = user_ids_test["user_id"].values
+
+    recommendations = recommender.recommend(ids, cutoff=20)
+
+    with open(os.path.join(SUBMISSIONS, filename), "w") as f:
+        f.write("user_id,item_list\n")
+        for user_id, rec_list in zip(ids, recommendations):
+            f.write(f"{user_id},{' '.join([str(item) for item in rec_list])}\n")
