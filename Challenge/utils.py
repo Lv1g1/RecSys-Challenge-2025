@@ -69,3 +69,71 @@ def evaluate_recommender(recommender, at, URM_validation, n_jobs=-1, batch_size=
         return 0.0
         
     return total_recall / total_eval
+
+from Recommenders.BaseRecommender import BaseRecommender
+from Challenge import paths
+import os, json
+from typing import Dict, Type
+
+def get_best_params(json_path: str) -> dict:
+    with open(json_path, "r") as f:
+        data = json.load(f)
+        
+        best_study = None
+        for _, values in data.items():
+            if best_study is None:
+                best_study = values
+                continue
+
+            if values["best_score"] > best_study["best_score"]:
+                best_study = values
+                
+    return best_study["best_params"]
+
+
+def train_and_save_model(URM_train, model_name, model_class: Type[BaseRecommender], model_folder):
+    print(f"  Training model: {model_name}")
+    model_instance = model_class(URM_train)
+    
+    try:
+        params = get_best_params(os.path.join(paths.PERFORMANCE_LOG, f"{model_name}.json"))
+    except Exception as e:
+        print(f"    Could not load parameters for {model_name}: {e}")
+        print("    Using default parameters")
+        params = {}
+
+    model_instance.fit(**params)
+    model_instance.save_model(model_folder, model_name)
+
+import os
+import gc  # Garbage Collector
+from typing import Dict, Type, Iterator, Tuple
+
+def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender]], model_folder) -> Iterator[Tuple[str, BaseRecommender]]:
+    model_folder = os.path.join(paths.MODEL_DIR, model_folder)
+    os.makedirs(model_folder, exist_ok=True)
+    
+    # Check that all the models are available, if not train and save them
+    for model_name, model_class in mapping.items():
+        if not os.path.exists(os.path.join(model_folder, model_name)):
+            print("Model not found.")
+            model_instance = model_class(URM_train)
+            train_and_save_model(URM_train, model_name, model_class, model_folder)
+            
+            gc.collect()  # Clean up memory
+        else:
+            print(f"Model found: {model_name}")
+
+
+    # Load all models (generator expression to save memory)
+    for model_name, model_class in mapping.items():
+        print(f"Loading {model_name} for feature generation...")
+        model_instance = model_class(URM_train)
+        model_instance.load_model(model_folder, model_name)
+        
+        yield model_name, model_instance
+
+        # CLEANUP: This runs when the caller asks for the NEXT item
+        print(f"Unloading {model_name}...")
+        del model_instance
+        gc.collect()

@@ -1,0 +1,22 @@
+{
+    "MatrixFactorization_WARP_Cython_Recommender": {
+        "best_trial": 1,
+        "best_score": 0.1672601947012271,
+        "best_params": {
+            "batch_size": 1024,
+            "sgd_mode": "adagrad",
+            "use_bias": false,
+            "num_factors": 128,
+            "learning_rate": 0.07149408001967965,
+            "WARP_neg_item_attempts": 50,
+            "user_reg": 0.009339267088021491,
+            "positive_reg": 0.009339267088021491,
+            "negative_reg": 0.0
+        },
+        "folds": {
+            "0": 0.1672601947012271
+        },
+        "mean_fold_score": 0.1672601947012271,
+        "std_fold_score": 0.0
+    }
+}

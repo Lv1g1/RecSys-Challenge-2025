@@ -1,0 +1,18 @@
+{
+    "IALSRecommender": {
+        "best_trial": 12,
+        "best_score": 0.24490601532686515,
+        "best_params": {
+            "num_factors": 115,
+            "alpha": 250.61664783284846,
+            "reg": 0.006612911689319667,
+            "confidence_scaling": "log",
+            "epsilon": 23.50652955476823
+        },
+        "folds": {
+            "0": 0.24490601532686515
+        },
+        "mean_fold_score": 0.24490601532686515,
+        "std_fold_score": 0.0
+    }
+}

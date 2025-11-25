@@ -1,0 +1,16 @@
+{
+    "MF_MSE_PyTorch_Recommender_trial": {
+        "best_trial": 4,
+        "best_score": 0.0034883720312604972,
+        "best_params": {
+            "num_factors": 1,
+            "batch_size": 1024,
+            "learning_rate": 0.029838827568850194
+        },
+        "folds": {
+            "0": 0.0034883720312604972
+        },
+        "mean_fold_score": 0.0034883720312604972,
+        "std_fold_score": 0.0
+    }
+}

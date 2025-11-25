@@ -1,0 +1,23 @@
+{
+    "MatrixFactorization_SVDpp_Cython_Recommender": {
+        "best_trial": 27,
+        "best_score": 0.08821993868321219,
+        "best_params": {
+            "num_factors": 8,
+            "batch_size": 512,
+            "sgd_mode": "adagrad",
+            "learning_rate": 0.000989423046410001,
+            "user_reg": 0.0025264543806215803,
+            "item_reg": 0.0025264543806215803,
+            "bias_reg": 0.0025264543806215803,
+            "positive_reg": 0.0025264543806215803,
+            "negative_reg": 0.0,
+            "use_bias": true
+        },
+        "folds": {
+            "0": 0.08821993868321219
+        },
+        "mean_fold_score": 0.08821993868321219,
+        "std_fold_score": 0.0
+    }
+}

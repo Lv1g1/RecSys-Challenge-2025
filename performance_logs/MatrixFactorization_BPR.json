@@ -1,0 +1,21 @@
+{
+    "MatrixFactorization_BPR_Cython_Recommender": {
+        "best_trial": 44,
+        "best_score": 0.14863201352766994,
+        "best_params": {
+            "batch_size": 512,
+            "sgd_mode": "adagrad",
+            "learning_rate": 0.04929677119554038,
+            "num_factors": 96,
+            "user_reg": 1.005636573502989e-06,
+            "positive_reg": 1.005636573502989e-06,
+            "negative_reg": 0.00014922048976360032,
+            "positive_threshold_BPR": null
+        },
+        "folds": {
+            "0": 0.14863201352766994
+        },
+        "mean_fold_score": 0.14863201352766994,
+        "std_fold_score": 0.0
+    }
+}
