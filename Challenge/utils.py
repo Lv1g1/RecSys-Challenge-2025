@@ -115,9 +115,8 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender]], model_fold
     
     # Check that all the models are available, if not train and save them
     for model_name, model_class in mapping.items():
-        if not os.path.exists(os.path.join(model_folder, model_name)):
+        if not os.path.exists(os.path.join(model_folder, model_name+".zip")):
             print("Model not found.")
-            model_instance = model_class(URM_train)
             train_and_save_model(URM_train, model_name, model_class, model_folder)
             
             gc.collect()  # Clean up memory
@@ -127,7 +126,7 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender]], model_fold
 
     # Load all models (generator expression to save memory)
     for model_name, model_class in mapping.items():
-        print(f"Loading {model_name} for feature generation...")
+        print(f"Loading {model_name}...")
         model_instance = model_class(URM_train)
         model_instance.load_model(model_folder, model_name)
         

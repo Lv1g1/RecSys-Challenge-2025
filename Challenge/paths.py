@@ -45,6 +45,14 @@ os.makedirs(SUBMISSIONS, exist_ok=True)
 PERFORMANCE_LOG = os.path.join(PERSISTENT_STORAGE, "performance_logs")
 os.makedirs(PERFORMANCE_LOG, exist_ok=True)
 
+# XG boost
+XGBOOST_DIR = os.path.join(PERSISTENT_STORAGE, "xg_boost")
+XGBOOST_MODELS = os.path.join(XGBOOST_DIR, "models")
+XGBOOST_DATAFRAMES = os.path.join(XGBOOST_DIR, "dataframes")
+os.makedirs(XGBOOST_DIR, exist_ok=True)
+os.makedirs(XGBOOST_MODELS, exist_ok=True)
+os.makedirs(XGBOOST_DATAFRAMES, exist_ok=True)
+
 if ENV == "kaggle":
     CHALLENGE_DATASET = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_train.csv"
     CHALLENGE_USER_IDS_TEST = "/kaggle/input/recommender-systems-2025-challenge-polimi/data_target_users_test.csv"

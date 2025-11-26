@@ -36,8 +36,8 @@ class NMFRecommender(BaseMatrixFactorizationRecommender):
 
     def fit(self, num_factors=100,
             l1_ratio = 0.5,
-            init_type = "random",
-            solver_beta_loss = None,
+            init_type = "nndsvda",
+            solver_beta_loss = "multiplicative_update:kullback-leibler",
             verbose = False,
             random_seed = None):
 

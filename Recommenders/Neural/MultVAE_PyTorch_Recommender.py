@@ -166,7 +166,7 @@ class MultVAERecommender_PyTorch(BaseRecommender, Incremental_Training_Early_Sto
 
     RECOMMENDER_NAME = "MultVAERecommender_PyTorch"
 
-    def __init__(self, URM_train, use_gpu=False, verbose=False):
+    def __init__(self, URM_train, use_gpu=True, verbose=False):
         super(MultVAERecommender_PyTorch, self).__init__(URM_train, verbose=verbose)
 
         if use_gpu:
@@ -180,16 +180,37 @@ class MultVAERecommender_PyTorch(BaseRecommender, Incremental_Training_Early_Sto
 
 
     def _compute_item_score(self, user_id_array, items_to_compute = None):
+        
+        # --- FIX START ---
 
-        u = torch.LongTensor(user_id_array)
-
+        # u = torch.LongTensor(user_id_array)
+        
         # Transferring only the sparse structure to reduce the data transfer
-        user_batch_tensor = self.URM_train[u]
-        user_batch_tensor = torch.sparse_csr_tensor(user_batch_tensor.indptr,
-                                                    user_batch_tensor.indices,
-                                                    user_batch_tensor.data,
-                                                    size=user_batch_tensor.shape, dtype=torch.float32,
-                                                    device=self.device, requires_grad=False).to_dense()
+        # user_batch_tensor = self.URM_train[u]
+        # user_batch_tensor = torch.sparse_csr_tensor(user_batch_tensor.indptr,
+        #                                             user_batch_tensor.indices,
+        #                                             user_batch_tensor.data,
+        #                                             size=user_batch_tensor.shape, dtype=torch.float32,
+        #                                             device=self.device, requires_grad=False).to_dense()
+
+        if isinstance(user_id_array, torch.Tensor):
+            u_indices = user_id_array.cpu().numpy()
+        else:
+            u_indices = np.array(user_id_array)
+
+        user_batch_scipy = self.URM_train[u_indices]
+
+        user_batch_tensor = torch.sparse_csr_tensor(
+            crow_indices = torch.from_numpy(user_batch_scipy.indptr).to(torch.long),
+            col_indices = torch.from_numpy(user_batch_scipy.indices).to(torch.long),
+            values = torch.from_numpy(user_batch_scipy.data).float(),
+            size = user_batch_scipy.shape,
+            dtype = torch.float32,
+            device = self.device,
+            requires_grad = False
+        ).to_dense()
+
+        # --- FIX END ---
 
         with torch.no_grad():
             self._model.eval()
@@ -298,9 +319,13 @@ class MultVAERecommender_PyTorch(BaseRecommender, Incremental_Training_Early_Sto
             # Clear previously computed gradients
             self._optimizer.zero_grad()
 
-            u = torch.LongTensor(np.random.choice(self.warm_user_ids, size=self.batch_size))
+            # --- FIX START ---
+            # Kept as numpy array so SciPy can slice the sparse matrix
+            u = np.random.choice(self.warm_user_ids, size=self.batch_size)
+            # --- FIX END ---
 
             # Transferring only the sparse structure to reduce the data transfer
+            
             user_batch_tensor = self.URM_train[u]
             user_batch_tensor = torch.sparse_csr_tensor(user_batch_tensor.indptr,
                                                         user_batch_tensor.indices,

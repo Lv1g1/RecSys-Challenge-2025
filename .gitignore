@@ -8,3 +8,6 @@ __pycache__/
 
 .vscode/
 build/
+
+xg_boost/
+optuna_storages/
