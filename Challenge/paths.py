@@ -46,10 +46,12 @@ PERFORMANCE_LOG = os.path.join(PERSISTENT_STORAGE, "performance_logs")
 os.makedirs(PERFORMANCE_LOG, exist_ok=True)
 
 # XG boost
-XGBOOST_DIR = os.path.join(PERSISTENT_STORAGE, "xg_boost")
+XGBOOST_DIR = os.path.join(PERSISTENT_STORAGE, "xg_boost_data")
+XG_BOOST_SPLITS = os.path.join(XGBOOST_DIR, "splits")
 XGBOOST_MODELS = os.path.join(XGBOOST_DIR, "models")
 XGBOOST_DATAFRAMES = os.path.join(XGBOOST_DIR, "dataframes")
 os.makedirs(XGBOOST_DIR, exist_ok=True)
+os.makedirs(XG_BOOST_SPLITS, exist_ok=True)
 os.makedirs(XGBOOST_MODELS, exist_ok=True)
 os.makedirs(XGBOOST_DATAFRAMES, exist_ok=True)
 
@@ -75,6 +77,32 @@ def load_holdout_split():
     URM_validation = sps.load_npz(URM_VALIDATION)
 
     return URM_train, URM_validation
+
+def save_xgboost_cv_folds(folds):
+    if ENV == "kaggle":
+        return
+
+    k = len(folds)
+    dir_path = os.path.join(XG_BOOST_SPLITS, f"{k}_folds")
+    os.makedirs(dir_path, exist_ok=True)
+
+    for i, (URM_train, URM_validation) in enumerate(folds):
+        sps.save_npz(os.path.join(dir_path, f"URM_train_fold_{i}.npz"), URM_train)
+        sps.save_npz(os.path.join(dir_path, f"URM_validation_fold_{i}.npz"), URM_validation)
+
+def load_xgboost_cv_folds(k=5):
+    URM_inner, URM_outer = load_holdout_split()
+    folds = []
+    dir_path = os.path.join(XG_BOOST_SPLITS, f"{k}_folds")
+    if ENV == "kaggle":
+        dir_path = "/kaggle/input/xg-boost-data/" + f"{k}_folds"
+
+    for i in range(k):
+        URM_train = sps.load_npz(os.path.join(dir_path, f"URM_train_fold_{i}.npz"))
+        URM_validation = sps.load_npz(os.path.join(dir_path, f"URM_validation_fold_{i}.npz"))
+        folds.append((URM_train, URM_validation))
+    
+    return URM_inner, URM_outer, folds
 
 def save_cv_folds(folds):
     if ENV == "kaggle":

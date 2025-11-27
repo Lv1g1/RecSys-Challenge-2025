@@ -1,6 +1,8 @@
 data/
 models/
 optuna_storage.db
+optuna_storages/
+
 __pycache__/
 # Cython compiled files
 *.c
@@ -9,5 +11,4 @@ __pycache__/
 .vscode/
 build/
 
-xg_boost/
-optuna_storages/
+xg_boost_data/
