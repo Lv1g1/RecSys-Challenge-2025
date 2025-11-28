@@ -53,5 +53,45 @@
         },
         "mean_fold_score": 0.2441437125140828,
         "std_fold_score": 0.000854954507798614
+    },
+    "IALS_implicit_optimization_v3": {
+        "best_trial": 25,
+        "best_score": 0.24631511017779828,
+        "best_params": {
+            "factors": 100,
+            "regularization": 0.5617610048419468,
+            "alpha": 11.108713010542706,
+            "iterations": 15,
+            "num_threads": 0
+        },
+        "folds": {
+            "0": 0.24656993740738142,
+            "1": 0.2467336935607809,
+            "2": 0.2469091918549449,
+            "3": 0.24451515493066403,
+            "4": 0.24684757313522024
+        },
+        "mean_fold_score": 0.24631511017779828,
+        "std_fold_score": 0.0009073519380350913
+    },
+    "IALS_implicit_optimization_v3_iterations": {
+        "best_trial": 5,
+        "best_score": 0.24669865029393198,
+        "best_params": {
+            "factors": 100,
+            "regularization": 0.5617610048419468,
+            "alpha": 11.108713010542706,
+            "iterations": 31,
+            "num_threads": 0
+        },
+        "folds": {
+            "0": 0.24676269751570248,
+            "1": 0.24704031189734194,
+            "2": 0.24706089710539833,
+            "3": 0.24506768939755388,
+            "4": 0.24756165555366333
+        },
+        "mean_fold_score": 0.24669865029393198,
+        "std_fold_score": 0.0008552039492562151
     }
 }
