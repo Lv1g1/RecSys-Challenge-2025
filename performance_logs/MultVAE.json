@@ -1,5 +1,51 @@
 {
     "Default": {
         "best_params": {}
+    },
+    "MultVAERecommender_PyTorch": {
+        "best_trial": 5,
+        "best_score": 0.2284142696648038,
+        "best_params": {
+            "epochs": 30,
+            "batch_size": 256,
+            "total_anneal_steps": 300000,
+            "learning_rate": 0.001703807063909963,
+            "l2_reg": 0.018618931526378817,
+            "dropout": 0.5,
+            "anneal_cap": 0.1,
+            "sgd_mode": "adam",
+            "encoding_size": 160,
+            "next_layer_size_multiplier": 3,
+            "max_parameters": 9800000,
+            "max_n_hidden_layers": 2
+        },
+        "folds": {
+            "0": 0.2284142696648038
+        },
+        "mean_fold_score": 0.2284142696648038,
+        "std_fold_score": 0.0
+    },
+    "MultVAERecommender_PyTorch_v1": {
+        "best_trial": 26,
+        "best_score": 0.24549235309817774,
+        "best_params": {
+            "epochs": 70,
+            "batch_size": 256,
+            "total_anneal_steps": 600000,
+            "learning_rate": 0.00030599089006292914,
+            "l2_reg": 0.0104723014135945,
+            "dropout": 0.4,
+            "anneal_cap": 0.1,
+            "sgd_mode": "adam",
+            "encoding_size": 220,
+            "next_layer_size_multiplier": 3,
+            "max_parameters": 4500000,
+            "max_n_hidden_layers": 5
+        },
+        "folds": {
+            "0": 0.24549235309817774
+        },
+        "mean_fold_score": 0.24549235309817774,
+        "std_fold_score": 0.0
     }
 }
