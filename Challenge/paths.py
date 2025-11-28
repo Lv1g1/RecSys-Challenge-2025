@@ -43,6 +43,8 @@ os.makedirs(SUBMISSIONS, exist_ok=True)
 
 # Performance logs path
 PERFORMANCE_LOG = os.path.join(PERSISTENT_STORAGE, "performance_logs")
+if ENV == "kaggle":
+    PERFORMANCE_LOG = os.path.join("/kaggle/working/RecSys-Challenge-2025/performance_logs")
 os.makedirs(PERFORMANCE_LOG, exist_ok=True)
 
 # XG boost
