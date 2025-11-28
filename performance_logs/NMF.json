@@ -1,5 +1,22 @@
 {
     "Default": {
         "best_params": {}
+    },
+    "NMFRecommender_v1": {
+        "best_trial": 0,
+        "best_score": 0.19995720920887552,
+        "best_params": {
+            "num_factors": 80,
+            "l1_ratio": 0.9599134004009405,
+            "init_type": "random",
+            "solver_beta_loss": "multiplicative_update:kullback-leibler",
+            "verbose": false,
+            "random_seed": 42
+        },
+        "folds": {
+            "0": 0.19995720920887552
+        },
+        "mean_fold_score": 0.19995720920887552,
+        "std_fold_score": 0.0
     }
 }
