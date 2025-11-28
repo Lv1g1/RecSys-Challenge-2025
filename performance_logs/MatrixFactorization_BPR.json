@@ -39,23 +39,23 @@
         "std_fold_score": 0.0
     },
     "MatrixFactorization_BPR_Cython_Recommender_v2": {
-        "best_trial": 11,
-        "best_score": 0.09155140699250869,
+        "best_trial": 39,
+        "best_score": 0.09160263325151015,
         "best_params": {
             "batch_size": 512,
             "sgd_mode": "adagrad",
-            "learning_rate": 0.05881263920438669,
-            "num_factors": 256,
-            "user_reg": 0.0036373998116895215,
-            "positive_reg": 0.0036373998116895215,
-            "negative_reg": 3.139019519374282e-06,
+            "learning_rate": 0.06640619591998106,
+            "num_factors": 160,
+            "user_reg": 0.00981906417729921,
+            "positive_reg": 0.00981906417729921,
+            "negative_reg": 3.717811975973743e-06,
             "positive_threshold_BPR": null,
             "epochs": 150
         },
         "folds": {
-            "0": 0.09155140699250869
+            "0": 0.09160263325151015
         },
-        "mean_fold_score": 0.09155140699250869,
+        "mean_fold_score": 0.09160263325151015,
         "std_fold_score": 0.0
     }
 }

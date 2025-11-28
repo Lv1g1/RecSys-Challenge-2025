@@ -222,7 +222,7 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLe
     for model_name, model_class in mapping.items():
         model_path = os.path.join(model_folder, model_name+".zip")
         if model_name == "IALS":
-            model_path = os.path.join(model_folder, model_name)
+            model_path = os.path.join(model_folder, model_name+".npz")
 
         if not os.path.exists(model_path):
             print("Model not found.")
