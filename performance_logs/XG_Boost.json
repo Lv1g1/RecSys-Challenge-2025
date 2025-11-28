@@ -1,0 +1,42 @@
+{
+    "XGBoostRerankerRecommender_v1": {
+        "best_trial": 116,
+        "best_score": 0.1883333857658521,
+        "best_params": {
+            "learning_rate": 0.03333626499558278,
+            "n_estimators": 456,
+            "max_depth": 10,
+            "reg_alpha": 9.810408127921004,
+            "reg_lambda": 0.006114020385138562,
+            "colsample_bytree": 0.5930684582052678,
+            "subsample": 0.8274535566719887,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise"
+        },
+        "folds": {
+            "0": 0.1883333857658521
+        },
+        "mean_fold_score": 0.1883333857658521,
+        "std_fold_score": 0.0
+    },
+    "XGBoostRerankerRecommender_v2": {
+        "best_trial": 0,
+        "best_score": 0.18957844434206664,
+        "best_params": {
+            "learning_rate": 0.0333,
+            "n_estimators": 456,
+            "max_depth": 10,
+            "reg_alpha": 9.81,
+            "reg_lambda": 0.006,
+            "colsample_bytree": 0.59,
+            "subsample": 0.82,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise"
+        },
+        "folds": {
+            "0": 0.18957844434206664
+        },
+        "mean_fold_score": 0.18957844434206664,
+        "std_fold_score": 0.0
+    }
+}
