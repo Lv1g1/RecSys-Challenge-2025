@@ -39,23 +39,83 @@
         "std_fold_score": 0.0
     },
     "MatrixFactorization_BPR_Cython_Recommender_v2": {
-        "best_trial": 39,
-        "best_score": 0.09160263325151015,
+        "best_trial": 47,
+        "best_score": 0.09186143781391803,
         "best_params": {
             "batch_size": 512,
             "sgd_mode": "adagrad",
-            "learning_rate": 0.06640619591998106,
-            "num_factors": 160,
-            "user_reg": 0.00981906417729921,
-            "positive_reg": 0.00981906417729921,
-            "negative_reg": 3.717811975973743e-06,
+            "learning_rate": 0.0771444563287747,
+            "num_factors": 128,
+            "user_reg": 0.009363574249728095,
+            "positive_reg": 0.009363574249728095,
+            "negative_reg": 1.0944762600436859e-05,
             "positive_threshold_BPR": null,
             "epochs": 150
         },
         "folds": {
-            "0": 0.09160263325151015
+            "0": 0.09186143781391803
         },
-        "mean_fold_score": 0.09160263325151015,
+        "mean_fold_score": 0.09186143781391803,
+        "std_fold_score": 0.0
+    },
+    "MatrixFactorization_BPR_Cython_Recommender_epochs_v1": {
+        "best_trial": 0,
+        "best_score": 0.10516430216523222,
+        "best_params": {
+            "batch_size": 512,
+            "sgd_mode": "adagrad",
+            "learning_rate": 0.04929677119554038,
+            "num_factors": 96,
+            "user_reg": 1.005636573502989e-06,
+            "positive_reg": 1.005636573502989e-06,
+            "negative_reg": 0.00014922048976360032,
+            "positive_threshold_BPR": null,
+            "epochs": 950
+        },
+        "folds": {
+            "0": 0.10516430216523222
+        },
+        "mean_fold_score": 0.10516430216523222,
+        "std_fold_score": 0.0
+    },
+    "MatrixFactorization_BPR_Cython_Recommender_epochs_v2": {
+        "best_trial": 0,
+        "best_score": 0.1719535435283076,
+        "best_params": {
+            "batch_size": 512,
+            "sgd_mode": "adagrad",
+            "learning_rate": 0.04929677119554038,
+            "num_factors": 96,
+            "user_reg": 1.005636573502989e-06,
+            "positive_reg": 1.005636573502989e-06,
+            "negative_reg": 0.00014922048976360032,
+            "positive_threshold_BPR": null,
+            "epochs": 1000
+        },
+        "folds": {
+            "0": 0.1719535435283076
+        },
+        "mean_fold_score": 0.1719535435283076,
+        "std_fold_score": 0.0
+    },
+    "MatrixFactorization_BPR_Cython_Recommender_epochs_v3": {
+        "best_trial": 4,
+        "best_score": 0.17914202582353736,
+        "best_params": {
+            "batch_size": 512,
+            "sgd_mode": "adagrad",
+            "learning_rate": 0.04929677119554038,
+            "num_factors": 96,
+            "user_reg": 1.005636573502989e-06,
+            "positive_reg": 1.005636573502989e-06,
+            "negative_reg": 0.00014922048976360032,
+            "positive_threshold_BPR": null,
+            "epochs": 1700
+        },
+        "folds": {
+            "0": 0.17914202582353736
+        },
+        "mean_fold_score": 0.17914202582353736,
         "std_fold_score": 0.0
     }
 }
