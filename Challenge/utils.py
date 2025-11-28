@@ -164,6 +164,7 @@ def evaluate_recommender_implicit(recommender, at, URM_train, URM_validation, ba
     return cumulative_recall / num_eval
 
 from Recommenders.BaseRecommender import BaseRecommender
+from implicit.cpu.als import AlternatingLeastSquares
 from Challenge import paths
 import os, json
 from typing import Dict, Type
@@ -184,9 +185,9 @@ def get_best_params(json_path: str) -> dict:
     return best_study["best_params"]
 
 
-def train_and_save_model(URM_train, model_name, model_class: Type[BaseRecommender], model_folder):
+
+def train_and_save_model(URM_train, model_name, model_class: Type[BaseRecommender|AlternatingLeastSquares], model_folder):
     print(f"  Training model: {model_name}")
-    model_instance = model_class(URM_train)
     
     try:
         params = get_best_params(os.path.join(paths.PERFORMANCE_LOG, f"{model_name}.json"))
@@ -195,8 +196,15 @@ def train_and_save_model(URM_train, model_name, model_class: Type[BaseRecommende
         print("    Using default parameters")
         params = {}
 
-    model_instance.fit(**params)
-    model_instance.save_model(model_folder, model_name)
+    if model_name == "IALS":
+        # Special case for Implicit ALS
+        model_instance = model_class(**params)
+        model_instance.fit(URM_train)
+        model_instance.save(os.path.join(model_folder, model_name))
+    else:
+        model_instance = model_class(URM_train)
+        model_instance.fit(**params)
+        model_instance.save_model(model_folder, model_name)
 
     # Save parameters used
     with open(os.path.join(model_folder, model_name+"_params.json"), "w") as f:
@@ -206,13 +214,17 @@ import os
 import gc
 from typing import Dict, Type, Iterator, Tuple
 
-def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender]], model_folder) -> Iterator[Tuple[str, BaseRecommender]]:
+def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLeastSquares]], model_folder) -> Iterator[Tuple[str, BaseRecommender]]:
     model_folder = os.path.join(paths.MODEL_DIR, model_folder)
     os.makedirs(model_folder, exist_ok=True)
     
     # Check that all the models are available, if not train and save them
     for model_name, model_class in mapping.items():
-        if not os.path.exists(os.path.join(model_folder, model_name+".zip")):
+        model_path = os.path.join(model_folder, model_name+".zip")
+        if model_name == "IALS":
+            model_path = os.path.join(model_folder, model_name)
+
+        if not os.path.exists(model_path):
             print("Model not found.")
             train_and_save_model(URM_train, model_name, model_class, model_folder)
             
@@ -245,8 +257,12 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender]], model_fold
     # Load all models (generator expression to save memory)
     for model_name, model_class in mapping.items():
         print(f"Loading {model_name}...")
-        model_instance = model_class(URM_train)
-        model_instance.load_model(model_folder, model_name)
+        if model_name == "IALS":
+            model_instance = model_class()
+            model_instance.load(os.path.join(model_folder, model_name))
+        else:
+            model_instance = model_class(URM_train)
+            model_instance.load_model(model_folder, model_name)
         
         yield model_name, model_instance
 
