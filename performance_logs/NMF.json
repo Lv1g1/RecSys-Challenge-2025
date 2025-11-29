@@ -1,5 +1,6 @@
 {
     "Default": {
+        "best_score": 0,
         "best_params": {}
     },
     "NMFRecommender_v1": {
