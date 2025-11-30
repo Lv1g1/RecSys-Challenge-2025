@@ -92,7 +92,7 @@ def save_xgboost_cv_folds(folds):
         sps.save_npz(os.path.join(dir_path, f"URM_train_fold_{i}.npz"), URM_train)
         sps.save_npz(os.path.join(dir_path, f"URM_validation_fold_{i}.npz"), URM_validation)
 
-def load_xgboost_cv_folds(k=5):
+def load_xgboost_cv_folds(k=5) -> tuple[sps.csr_matrix, sps.csr_matrix, list[tuple[sps.csr_matrix, sps.csr_matrix]]]:
     URM_inner, URM_outer = load_holdout_split()
     folds = []
     dir_path = os.path.join(XG_BOOST_SPLITS, f"{k}_folds")
@@ -118,7 +118,7 @@ def save_cv_folds(folds):
         sps.save_npz(os.path.join(dir_path, f"URM_train_fold_{i}.npz"), URM_train)
         sps.save_npz(os.path.join(dir_path, f"URM_validation_fold_{i}.npz"), URM_validation)
 
-def load_cv_folds(k):
+def load_cv_folds(k) -> list[tuple[sps.csr_matrix, sps.csr_matrix]]:
     folds = []
     
     dir_path = os.path.join(DATA_DIR, f"{k}_folds")

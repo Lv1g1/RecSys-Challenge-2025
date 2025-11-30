@@ -71,7 +71,7 @@ def evaluate_recommender_parallel(recommender, at, URM_validation, n_jobs=-1, ba
         
     return total_recall / total_eval
 
-def evaluate_recommender(recommender, at, URM_validation, batch_size=1000):
+def evaluate_recommender(recommender, URM_validation, at=20, batch_size=1000):
     """
     Batched single-core evaluation.
     """
@@ -109,7 +109,7 @@ def evaluate_recommender(recommender, at, URM_validation, batch_size=1000):
         
     return cumulative_recall / num_eval
 
-def evaluate_recommender_implicit(recommender, at, URM_train, URM_validation, batch_size=1000):
+def evaluate_recommender_implicit(recommender, URM_train, URM_validation, at=20, batch_size=1000):
     """
     Batched single-core evaluation adapted for the 'implicit' library.
     """
@@ -214,8 +214,7 @@ import os
 import gc
 from typing import Dict, Type, Iterator, Tuple
 
-def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLeastSquares]], model_folder) -> Iterator[Tuple[str, BaseRecommender]]:
-    model_folder = os.path.join(paths.MODEL_DIR, model_folder)
+def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLeastSquares]], model_folder, verbose=True, unload=True) -> Iterator[Tuple[str, BaseRecommender|AlternatingLeastSquares]]:
     os.makedirs(model_folder, exist_ok=True)
     
     # Check that all the models are available, if not train and save them
@@ -230,7 +229,7 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLe
             
             gc.collect()  # Clean up memory
         else:
-            print(f"Model found: {model_name}")
+            if verbose: print(f"Model found: {model_name}")
 
             # Check if parameters file exists
             params_path = os.path.join(model_folder, model_name+"_params.json")
@@ -256,10 +255,9 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLe
             
     # Load all models (generator expression to save memory)
     for model_name, model_class in mapping.items():
-        print(f"Loading {model_name}...")
+        if verbose: print(f"Loading {model_name}...")
         if model_name == "IALS":
-            model_instance = model_class()
-            model_instance.load(os.path.join(model_folder, model_name))
+            model_instance = model_class.load(os.path.join(model_folder, model_name))
         else:
             model_instance = model_class(URM_train)
             model_instance.load_model(model_folder, model_name)
@@ -267,6 +265,7 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLe
         yield model_name, model_instance
 
         # CLEANUP: This runs when the caller asks for the NEXT item
-        print(f"Unloading {model_name}...")
-        del model_instance
-        gc.collect()    
+        if unload:
+            if verbose: print(f"Unloading {model_name}...")
+            del model_instance
+            gc.collect()

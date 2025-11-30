@@ -1,4 +1,5 @@
 import numpy as np
+import xgboost as xgb
 
 class XGBoostRerankerRecommender:
     RECOMMENDER_NAME = "XGBoostRerankerRecommender"
@@ -74,3 +75,11 @@ class XGBoostRerankerRecommender:
             recommendations.append(top_items.tolist())
             
         return np.array(recommendations, dtype=object)
+    
+
+class ProgressCallback(xgb.callback.TrainingCallback):
+    def __init__(self, total_trees):
+        self.total_trees = total_trees
+    def after_iteration(self, model, epoch, evals_log):
+        print(f"\r[Training] Tree {epoch + 1}/{self.total_trees}", end="")
+        return False
