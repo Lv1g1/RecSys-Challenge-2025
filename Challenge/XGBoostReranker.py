@@ -85,7 +85,7 @@ class ProgressCallback(xgb.callback.TrainingCallback):
     def after_iteration(self, model, epoch, evals_log):
         # XGBoost epochs are 0-indexed
         if (epoch + 1) % self.period == 0:
-            print(f"\r[Training] Tree {epoch + 1}/{self.total_trees}", end="")
+            print(f"[Training] Tree {epoch + 1}/{self.total_trees}")
         
         # Return False to continue training (True would stop it)
         return False
