@@ -76,10 +76,16 @@ class XGBoostRerankerRecommender:
             
         return np.array(recommendations, dtype=object)
     
-
+    
 class ProgressCallback(xgb.callback.TrainingCallback):
-    def __init__(self, total_trees):
+    def __init__(self, total_trees, period=50):
         self.total_trees = total_trees
+        self.period = period
+
     def after_iteration(self, model, epoch, evals_log):
-        print(f"\r[Training] Tree {epoch + 1}/{self.total_trees}", end="")
+        # XGBoost epochs are 0-indexed
+        if (epoch + 1) % self.period == 0:
+            print(f"\r[Training] Tree {epoch + 1}/{self.total_trees}", end="")
+        
+        # Return False to continue training (True would stop it)
         return False

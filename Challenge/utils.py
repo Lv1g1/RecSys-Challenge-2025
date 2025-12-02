@@ -269,3 +269,79 @@ def load_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLe
             if verbose: print(f"Unloading {model_name}...")
             del model_instance
             gc.collect()
+
+def train_all_models(URM_train, mapping: Dict[str, Type[BaseRecommender|AlternatingLeastSquares]]) -> list[Tuple[str, BaseRecommender|AlternatingLeastSquares]]:
+    models = []
+    for model_name, model_class in mapping.items():
+        print(f"  Training model: {model_name}")
+        
+        try:
+            params = get_best_params(os.path.join(paths.PERFORMANCE_LOG, f"{model_name}.json"))
+        except Exception as e:
+            print(f"    Could not load parameters for {model_name}: {e}")
+            print("    Using default parameters")
+            params = {}
+
+        if model_name == "IALS":
+            # Special case for Implicit ALS
+            model_instance = model_class(**params)
+            model_instance.fit(URM_train)
+        else:
+            model_instance = model_class(URM_train)
+            model_instance.fit(**params)
+        
+        models.append((model_name, model_instance))
+
+    return models
+
+import scipy.sparse as sps
+def get_sparse_from_indices(URM, indices):
+    """
+    Given a URM and a list of indices, return a sparse matrix containing only the interactions
+    corresponding to the given indices.
+    """
+    URM_coo = URM.tocoo()
+    
+    rows = URM_coo.row[indices]
+    cols = URM_coo.col[indices]
+    data = URM_coo.data[indices]
+    
+    return sps.coo_matrix((data, (rows, cols)), shape=URM.shape).tocsr()
+
+def split_into_folds(URM, n_folds=10, random_seed=42, verbose=True):
+    np.random.seed(random_seed)
+
+    # Shuffle the indices for splitting
+    indices = np.arange(0, URM.nnz, 1)
+    np.random.shuffle(indices)
+
+    folds_idx = np.array_split(indices, n_folds)
+
+    # Create the train-validation splits for each fold
+    folds = []
+    for i, fold_indices in enumerate(folds_idx):
+        val_idx = fold_indices
+        train_idx = np.setdiff1d(indices, val_idx)
+        
+        URM_validation = get_sparse_from_indices(URM, val_idx)
+        URM_train = get_sparse_from_indices(URM, train_idx)
+    
+        folds.append((URM_train, URM_validation))
+
+        if verbose:
+            print(f"Fold {i+1}/{len(folds_idx)}")
+            print("URM_all:", URM.shape)
+            print("URM_train:", URM_train.shape)
+            print("URM_validation:", URM_validation.shape)
+            print()
+            print("URM_all:", len(URM.nonzero()[0]))
+            print("URM_train:", len(URM_train.nonzero()[0]))
+            print("URM_validation:", len(URM_validation.nonzero()[0]))
+            print("-" * 30)
+
+    return folds
+
+
+def get_user_batches(user_ids, batch_size=1000):
+    for i in range(0, len(user_ids), batch_size):
+        yield user_ids[i:i + batch_size]
