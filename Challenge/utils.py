@@ -109,6 +109,58 @@ def evaluate_recommender(recommender, URM_validation, at=20, batch_size=1000):
         
     return cumulative_recall / num_eval
 
+def evaluate_recommender_xgboost(recommender, URM_validation, at=20, batch_size=1000):
+    """
+    Evaluates the XGBoost Recommender ONLY on users present in the XGBoost Dataframe.
+    """
+    cumulative_recall = 0.0
+    num_eval = 0
+    
+    # 1. Extract Valid Users from the Recommender's internal map
+    # We convert to a sorted numpy array to ensure batching is sequential
+    valid_users = np.array(list(recommender.user_map.keys()))
+    valid_users.sort()
+    
+    num_users_to_eval = len(valid_users)
+    print(f"Evaluating on {num_users_to_eval} users available in the XGBoost model...")
+
+    # 2. Iterate over the VALID users in batches
+    for i in tqdm(range(0, num_users_to_eval, batch_size), desc="Eval Batches"):
+        
+        # Get the batch of User IDs
+        users_batch = valid_users[i : i + batch_size]
+        
+        # Get Recommendations (The recommender guarantees these users exist)
+        recommended_items_batch = recommender.recommend(users_batch, cutoff=at)
+        
+        # Get Ground Truth for this specific batch of users
+        # CSR matrices allow slicing by a list of row indices!
+        target_block = URM_validation[users_batch]
+        
+        # Calculate Metric for the batch
+        for idx in range(len(users_batch)):
+            
+            # Ground truth indices
+            start_ptr = target_block.indptr[idx]
+            end_ptr = target_block.indptr[idx+1]
+            relevant_items = target_block.indices[start_ptr:end_ptr]
+            
+            if len(relevant_items) > 0:
+                num_eval += 1
+                
+                # Recommendations for this user
+                recs = recommended_items_batch[idx]
+                
+                # Calculate Hits
+                hit_count = np.isin(recs, relevant_items, assume_unique=True).sum()
+                
+                cumulative_recall += hit_count / len(relevant_items)
+
+    if num_eval == 0:
+        return 0.0
+        
+    return cumulative_recall / num_eval
+
 def evaluate_recommender_implicit(recommender, URM_train, URM_validation, at=20, batch_size=1000):
     """
     Batched single-core evaluation adapted for the 'implicit' library.

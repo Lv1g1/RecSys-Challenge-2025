@@ -76,16 +76,33 @@ class XGBoostRerankerRecommender:
             
         return np.array(recommendations, dtype=object)
     
-    
+
 class ProgressCallback(xgb.callback.TrainingCallback):
     def __init__(self, total_trees, period=50):
         self.total_trees = total_trees
         self.period = period
 
     def after_iteration(self, model, epoch, evals_log):
-        # XGBoost epochs are 0-indexed
-        if (epoch + 1) % self.period == 0:
-            print(f"[Training] Tree {epoch + 1}/{self.total_trees}")
+        current_tree = epoch + 1
         
-        # Return False to continue training (True would stop it)
+        if current_tree % self.period == 0:
+            # Prepare a list of strings to print
+            log_parts = [f"[Training] Tree {current_tree}/{self.total_trees}"]
+            
+            # Iterate over all datasets (e.g., validation_0, validation_1)
+            for dataset_name, metrics in evals_log.items():
+                
+                # Iterate over all metrics for this dataset (e.g., map@20, ndcg@20)
+                metric_strings = []
+                for metric_name, scores in metrics.items():
+                    current_score = scores[-1]
+                    metric_strings.append(f"{metric_name}: {current_score:.5f}")
+                
+                # Combine metric strings for this dataset
+                dataset_log = f"[{dataset_name}] " + " ".join(metric_strings)
+                log_parts.append(dataset_log)
+            
+            # Print everything on one line (or separated by ' | ')
+            print(" | ".join(log_parts))
+        
         return False
