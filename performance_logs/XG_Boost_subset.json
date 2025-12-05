@@ -1,0 +1,107 @@
+{
+    "XGBoostRerankerRecommender_v1": {
+        "best_trial": 120,
+        "best_score": 0.2998644774589741,
+        "best_params": {
+            "n_estimators": 3000,
+            "learning_rate": 0.08225714220496408,
+            "max_depth": 11,
+            "reg_alpha": 9.648175610314793,
+            "reg_lambda": 0.003963311525504526,
+            "min_child_weight": 2,
+            "colsample_bytree": 0.5318679312834346,
+            "subsample": 0.8257007451139619,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise"
+        },
+        "folds": {
+            "0": 0.2998644774589741
+        },
+        "mean_fold_score": 0.2998644774589741,
+        "std_fold_score": 0.0
+    },
+    "XGBoostRerankerRecommendersubset_v1": {
+        "best_trial": 1,
+        "best_score": 0.3022934325044994,
+        "best_params": {
+            "n_estimators": 3000,
+            "learning_rate": 0.027533197212277448,
+            "max_depth": 10,
+            "reg_alpha": 0.03499672222760574,
+            "reg_lambda": 0.007337745639060622,
+            "min_child_weight": 12,
+            "colsample_bytree": 0.48541719029544406,
+            "subsample": 0.4791708237893471,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise"
+        },
+        "folds": {
+            "0": 0.3022934325044994
+        },
+        "mean_fold_score": 0.3022934325044994,
+        "std_fold_score": 0.0
+    },
+    "XGBoostRerankerRecommendersubset_v2": {
+        "best_trial": 101,
+        "best_score": 0.29518362163961825,
+        "best_params": {
+            "n_estimators": 3000,
+            "learning_rate": 0.04111150002534445,
+            "max_depth": 14,
+            "reg_alpha": 0.014104141873006106,
+            "reg_lambda": 0.1413754120778902,
+            "min_child_weight": 18,
+            "colsample_bytree": 0.8201297934548164,
+            "subsample": 0.8816072163479192,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise"
+        },
+        "folds": {
+            "0": 0.29518362163961825
+        },
+        "mean_fold_score": 0.29518362163961825,
+        "std_fold_score": 0.0
+    },
+    "XGBoostRerankerRecommendersubset_v3": {
+        "best_trial": 31,
+        "best_score": 0.2954505789321799,
+        "best_params": {
+            "n_estimators": 3000,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise",
+            "reg_alpha": 0.015,
+            "reg_lambda": 0.15,
+            "subsample": 0.88,
+            "colsample_bytree": 0.8,
+            "learning_rate": 0.03860112636082628,
+            "max_depth": 12,
+            "min_child_weight": 41
+        },
+        "folds": {
+            "0": 0.2954505789321799
+        },
+        "mean_fold_score": 0.2954505789321799,
+        "std_fold_score": 0.0
+    },
+    "XGBoostRerankerRecommendersubset_final_v3": {
+        "best_trial": 9,
+        "best_score": 0.29607346770182674,
+        "best_params": {
+            "n_estimators": 5000,
+            "objective": "rank:ndcg",
+            "grow_policy": "depthwise",
+            "learning_rate": 0.01663494687086197,
+            "min_child_weight": 79,
+            "max_depth": 13,
+            "subsample": 0.7759364599906572,
+            "colsample_bytree": 0.8480380945337984,
+            "reg_alpha": 0.13829042388269522,
+            "reg_lambda": 0.20579730124732049
+        },
+        "folds": {
+            "0": 0.29607346770182674
+        },
+        "mean_fold_score": 0.29607346770182674,
+        "std_fold_score": 0.0
+    }
+}
