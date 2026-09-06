@@ -1,0 +1,26 @@
+# Python 3.13 (the committed Cython extensions were built against cpython-313)
+
+# core
+numpy
+scipy
+pandas
+scikit-learn
+Cython
+
+# models
+xgboost
+implicit           # IALS
+torch              # MultVAE
+
+# tuning
+optuna
+
+# io / parquet
+pyarrow
+fastparquet
+
+# plots and utils
+matplotlib
+seaborn
+joblib
+tqdm
